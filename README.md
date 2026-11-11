@@ -65,7 +65,7 @@ Each change should have a clear purpose, a reviewable diff, and an appropriate t
 
 ## Current status
 
-**Foundation documentation in progress. No working capability evaluator or hardware security implementation is published yet.**
+**Foundation documentation published. No working capability evaluator or hardware security implementation is published yet.**
 
 Completed work and test results will be linked here as they become available. Planned milestones are tracked in the [roadmap](docs/ROADMAP.md).
 
