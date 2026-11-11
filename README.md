@@ -12,6 +12,20 @@ The project investigates how hardware capabilities can be modeled, security requ
 
 ## 1. Mission
 
+
+## Architecture & Engineering Documentation
+
+SILIARCH is built around explicit engineering requirements, modular architecture, and reproducible verification.
+
+New to the project? Start with the architecture overview before exploring future implementation modules.
+
+| Document | Purpose |
+|---|---|
+| [System Architecture](docs/architecture/SYSTEM_OVERVIEW.md) | Understand the system structure, components, and data flow |
+| [Trust and Evidence](docs/architecture/TRUST_AND_EVIDENCE.md) | Explore trust boundaries, validation, and verification evidence |
+| [Engineering Roadmap](docs/ROADMAP.md) | Review development milestones and acceptance criteria |
+| [Architecture Decisions](docs/decisions/0001-foundation-first.md) | Understand the rationale behind the initial development approach |
+
 Develop a modular research platform for hardware capability modeling, security assurance, embedded computing, and hardware-software verification.
 
 SILIARCH aims to connect foundational electrical and computer engineering with practical research in FPGA systems, processor architectures, firmware security, trusted computing, and advanced hardware verification.
