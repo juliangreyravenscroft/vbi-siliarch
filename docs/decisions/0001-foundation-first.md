@@ -1,79 +1,43 @@
-# ADR-0001: Establish a Portable Foundation Before Hardware Integration
+# ADR-0001: Start with a Portable Capability Model
 
-**Status:** Proposed  
-**Date:** 2026-11-11  
-**Project:** SILIARCH
+Status: Accepted  
+Date: 2026-11-11
 
 ## Context
 
-SILIARCH aims to investigate secure computing across different processor architectures, firmware environments, and hardware platforms.
+SILIARCH will eventually investigate firmware integrity, FPGA logic, processor-specific interfaces, and hardware attestation. Starting with all of these at once would make failures difficult to isolate.
 
-Beginning with a complete FPGA, secure boot, or device-attestation implementation would introduce many dependencies before the core data contracts and verification expectations are understood.
+We first need a clear way to represent device claims, check their structure, and explain what an assessment does and does not prove.
 
-The project requires a development sequence that supports learning, portability, testability, and reproducible evidence.
+## Options
 
-## Options Considered
+1. Start with an FPGA implementation. This would teach RTL early but require simulation and timing decisions before the data model is established.
+2. Build the entire architecture. This would create interfaces for components with no tested requirements.
+3. Start with a small portable capability model. This lets us test the data contract and evaluation rules before adding hardware integrations.
 
-### Option A: Begin with an FPGA implementation
+## Decision
 
-Provides early RTL experience but introduces synthesis, simulation, timing, and hardware-specific constraints before the core capability and assurance model exists.
+Choose option 3.
 
-### Option B: Implement the complete proposed architecture
+The first implementation will use Python and the standard library where practical. It will validate a declared device profile and evaluate explicit capability requirements. It will not claim physical device verification.
 
-Establishes broad interfaces early but risks premature abstraction, unnecessary dependencies, and unverified assumptions.
-
-### Option C: Develop a small portable software foundation
-
-Allows capability modeling, validation, contract design, and automated testing to be established before hardware integration.
-
-## Proposed Decision
-
-Begin SILIARCH with a minimal, portable Hardware Capability & Assurance Prototype.
-
-The initial implementation will use Python and its standard library where practical.
-
-Hardware-specific adapters, RTL verification components, and cryptographic attestation mechanisms will be introduced as independently testable extensions.
-
-Interfaces will remain small and will receive explicit versioning when stable data contracts are introduced.
-
-## Rationale
-
-This approach provides:
-
-- A low-complexity starting point
-- Early verification of core assumptions
-- Clear separation between declarations and hardware evidence
-- Easier debugging and test reproducibility
-- A controlled route toward heterogeneous hardware support
+Platform adapters, RTL modules, and attestation mechanisms will be added as separate, testable pieces when their interfaces and requirements are understood.
 
 ## Consequences
 
-### Positive
+Benefits:
+- Small, inspectable changes
+- Early tests for invalid and boundary inputs
+- Clear separation between declarations and evidence
+- Less coupling to one board or toolchain
 
-The project can establish meaningful tests before hardware dependencies accumulate.
+Costs:
+- Hardware experiments begin later
+- The initial model cannot authenticate a real device
+- Some interfaces may need revision after hardware testing
 
-The portable evaluation core can evolve independently of individual boards.
+## Review
 
-### Negative
+Revisit this decision if a hardware experiment reveals that the chosen profile format or interface boundaries cannot represent the required behavior.
 
-Physical hardware verification is deferred.
-
-The initial software model provides limited assurance about real devices.
-
-Future hardware integration may expose assumptions requiring architectural changes.
-
-## Acceptance Criteria
-
-This decision may be accepted when the first foundation milestone and its verification boundaries are approved.
-
-Implementation results will be recorded separately rather than treated as proof that the architectural decision was correct in every context.
-
-## Related Documents
-
-- [System Architecture](../architecture/SYSTEM_OVERVIEW.md)
-- [Trust and Evidence Model](../architecture/TRUST_AND_EVIDENCE.md)
-- [Engineering Roadmap](../ROADMAP.md)
-
----
-
-**Decision principle:** Prefer validated simplicity over premature complexity.
+Related documents: [System Overview](../architecture/SYSTEM_OVERVIEW.md), [Trust and Evidence](../architecture/TRUST_AND_EVIDENCE.md), [Roadmap](../ROADMAP.md).
