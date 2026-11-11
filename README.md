@@ -26,6 +26,7 @@ The first milestone addresses the first two questions. The third requires additi
 |---|---|
 | [System Overview](docs/architecture/SYSTEM_OVERVIEW.md) | Data flow, planned components, and module boundaries |
 | [Trust and Evidence](docs/architecture/TRUST_AND_EVIDENCE.md) | Input trust, test evidence, and assurance limitations |
+| [Device Profile v0.1](docs/architecture/DEVICE_PROFILE_V0_1.md) | Proposed input format and first validation test cases |
 | [Engineering Roadmap](docs/ROADMAP.md) | Milestones, deliverables, and acceptance criteria |
 | [ADR-0001](docs/decisions/0001-foundation-first.md) | Why the project starts with a portable software model |
 
