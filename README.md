@@ -2,220 +2,77 @@
 
 **Adaptive Trusted Hardware & Computing Platform**
 
-*VanceBlackwood Industries | RAVENSCROFT Engineering Research*
+VanceBlackwood Industries | RAVENSCROFT Engineering Research
 
-SILIARCH is an engineering research project focused on trusted hardware, secure computing, computer architecture, and reproducible system verification.
+SILIARCH is a hardware and systems engineering research project. Its goal is to make device capabilities, security assumptions, and verification results easier to describe, test, and review across different computing platforms.
 
-The project investigates how hardware capabilities can be modeled, security requirements can be expressed, and evidence can be produced to support verifiable engineering decisions across heterogeneous computing environments.
+The project is at the foundation stage. The architecture below is a design direction, not a claim that the hardware security features have been implemented.
 
-**Engineering principle: Understand the system. Define its assumptions. Verify its behavior. Preserve the evidence.**
+## The problem
 
-## 1. Mission
+A device profile may say that a board has a particular processor, amount of memory, or security feature. Software can check whether that description matches an application's requirements, but the description alone cannot prove what is present on the board.
 
+SILIARCH will keep three questions separate:
 
-## Architecture & Engineering Documentation
+1. What does a device or manifest claim?
+2. Does that claim satisfy a defined requirement?
+3. What has been verified through tests, measurements, or trusted evidence?
 
-SILIARCH is built around explicit engineering requirements, modular architecture, and reproducible verification.
+The first milestone addresses the first two questions. The third requires additional mechanisms and careful documentation of their limitations.
 
-New to the project? Start with the architecture overview before exploring future implementation modules.
+## Documentation
 
-| Document | Purpose |
+| Document | What it covers |
 |---|---|
-| [System Architecture](docs/architecture/SYSTEM_OVERVIEW.md) | Understand the system structure, components, and data flow |
-| [Trust and Evidence](docs/architecture/TRUST_AND_EVIDENCE.md) | Explore trust boundaries, validation, and verification evidence |
-| [Engineering Roadmap](docs/ROADMAP.md) | Review development milestones and acceptance criteria |
-| [Architecture Decisions](docs/decisions/0001-foundation-first.md) | Understand the rationale behind the initial development approach |
+| [System Overview](docs/architecture/SYSTEM_OVERVIEW.md) | Data flow, planned components, and module boundaries |
+| [Trust and Evidence](docs/architecture/TRUST_AND_EVIDENCE.md) | Input trust, test evidence, and assurance limitations |
+| [Engineering Roadmap](docs/ROADMAP.md) | Milestones, deliverables, and acceptance criteria |
+| [ADR-0001](docs/decisions/0001-foundation-first.md) | Why the project starts with a portable software model |
 
-Develop a modular research platform for hardware capability modeling, security assurance, embedded computing, and hardware-software verification.
+Read the system overview first if you want to understand how the components will fit together.
 
-SILIARCH aims to connect foundational electrical and computer engineering with practical research in FPGA systems, processor architectures, firmware security, trusted computing, and advanced hardware verification.
+## First milestone
 
-The long-term objective is to support portable, testable, and extensible computing components with clearly defined security properties and hardware-specific verification boundaries.
+The first deliverable is a small hardware capability evaluator.
 
-## 2. Engineering Problem
+It will:
 
-Modern computing environments combine different processors, firmware implementations, hardware interfaces, and security mechanisms.
+- Read a versioned device profile
+- Validate fields, types, and value ranges
+- Compare declared capabilities with explicit requirements
+- Return a clear outcome or validation error
+- Include repeatable tests for normal and invalid inputs
 
-This creates several engineering challenges:
+The prototype will not inspect a physical device or establish the authenticity of a profile. A matching result means only that the supplied data meets the specified conditions.
 
-- Hardware capabilities are often represented inconsistently across devices.
-- Firmware integrity and device trust require evidence beyond software configuration.
-- Security assumptions may not match actual hardware behavior.
-- Verification results can be difficult to reproduce across platforms.
-- Hardware-specific implementations complicate portability and integration.
-- Simulation results do not automatically establish physical hardware correctness.
+The follow-up milestone, SILIARCH-001, will introduce a secure register controller as an RTL verification exercise. It will cover binary logic, clock and reset behavior, register access rules, simulation, and assertions.
 
-SILIARCH will investigate these problems through small, measurable, independently testable engineering components.
+## Research direction
 
-## 3. Research Domains
+Future work may include FPGA development, embedded firmware, RISC-V and ARM platform adapters, secure boot, device identity, hardware roots of trust, attestation, formal verification, and accelerator integrity.
 
-| Domain | Research Focus |
-|---|---|
-| Computer Architecture | Processor design, memory systems, instruction sets, and hardware interfaces |
-| Digital Logic & RTL | Boolean logic, registers, state machines, SystemVerilog, and timing |
-| FPGA Engineering | Programmable logic, simulation, synthesis, and hardware implementation |
-| Embedded Systems | Firmware architecture, device interfaces, and low-level programming |
-| Hardware Security | Secure boot, device identity, roots of trust, and attestation |
-| Processor Architectures | RISC-V, ARM, portability, and platform-specific integration |
-| Formal Verification | Assertions, properties, state exploration, and correctness evidence |
-| Cryptography | Hardware-assisted cryptography, key protection, and integrity mechanisms |
-| Advanced Computing | Hardware-software co-design, accelerator integrity, and trusted execution |
-| Cyber-Physical Systems | Controlled research into safety-relevant embedded and aerospace hardware |
+These are research areas. Platform support and security properties will be reported only when backed by tests or other appropriate evidence.
 
-These domains define the research direction, not a claim of completed implementation.
+## How work is organized
 
-## 4. Architecture Direction
+The design separates device declarations, portable evaluation logic, hardware-specific adapters, verification, and evidence records. AI-assisted analysis is a possible later extension, not a trust anchor.
 
-SILIARCH is planned around seven conceptual layers.
+Development starts with Python and small, testable components. Hardware-specific tools will be added when a milestone needs them.
 
-| Layer | Responsibility |
-|---|---|
-| Device Capability | Describe supported hardware properties and interfaces |
-| Portable Computing Core | Provide reusable platform-independent logic |
-| Hardware Adapters | Connect common interfaces to platform-specific implementations |
-| Trust & Attestation | Evaluate device identity, integrity, and security evidence |
-| Verification | Execute deterministic tests, simulations, and formal checks |
-| Evidence & Provenance | Preserve validation outcomes, assumptions, and tool metadata |
-| AI Extensions | Support future bounded, auditable research assistance |
+The working setup is Visual Studio Code on Apple Silicon, with terminal commands for filesystem, Git, builds, and tests. Source code and technical documents are edited in the VS Code editor.
 
-The architecture will evolve through documented engineering decisions and validated prototypes.
+Each change should have a clear purpose, a reviewable diff, and an appropriate test or documentation check. A simulation result must not be presented as a physical hardware result.
 
-The initial implementation will not attempt to deliver all seven layers.
+## Current status
 
-## 5. Initial Engineering Objective
+**Foundation documentation in progress. No working capability evaluator or hardware security implementation is published yet.**
 
-### SILIARCH Foundation: Portable Hardware Capability & Assurance Prototype
+Completed work and test results will be linked here as they become available. Planned milestones are tracked in the [roadmap](docs/ROADMAP.md).
 
-The first development milestone is a small, testable software prototype that can represent hardware properties and evaluate explicitly defined capability requirements.
+## Scope and licensing
 
-Planned deliverables:
+SILIARCH covers trusted hardware and computing. General cyber defense, intelligence, and quantitative finance remain separate projects in the RAVENSCROFT research program.
 
-- Structured hardware capability profiles
-- Input and schema validation
-- Deterministic capability checks
-- Explicit error handling
-- Command-line interface
-- Unit and regression tests
-- Reproducible verification results
-- Basic technical documentation
+Security experiments are limited to authorized, controlled environments.
 
-This foundation is intended to establish reliable engineering interfaces before introducing complex hardware integrations.
-
-### SILIARCH-001: Verified Secure Register Controller
-
-The next engineering milestone will introduce an RTL-based register controller.
-
-Research topics include:
-
-- Binary representation and Boolean algebra
-- Combinational and sequential digital logic
-- Register behavior and state transitions
-- Clock and reset handling
-- Access-control properties
-- SystemVerilog implementation
-- Testbench development
-- Waveform analysis
-- Assertion-based and formal verification
-
-Simulation and formal results will be reported with their assumptions, coverage, and limitations. Physical hardware claims will require separate validation.
-
-## 6. Development Roadmap
-
-| Phase | Engineering Focus | Expected Evidence |
-|---|---|---|
-| 01 | Foundations and capability modeling | Working prototypes and unit tests |
-| 02 | Digital logic and RTL verification | Testbenches, waveforms, and assertions |
-| 03 | Firmware and hardware assurance | Integrity models and controlled verification experiments |
-| 04 | Heterogeneous hardware integration | Platform-specific adapters and compatibility reports |
-| 05 | Advanced security research | Reproducible experiments and documented assurance boundaries |
-
-Milestones will progress according to verified results rather than fixed feature claims.
-
-## 7. Engineering Standards
-
-SILIARCH follows these development principles:
-
-1. **First-principles engineering:** Understand underlying mechanisms before building abstractions.
-2. **Modular architecture:** Separate portable logic from hardware-dependent implementations.
-3. **Verification-driven development:** Define expected behavior and evaluate it through repeatable tests.
-4. **Explicit trust boundaries:** Distinguish untrusted inputs, asserted capabilities, and verified evidence.
-5. **Reproducible research:** Record relevant assumptions, configurations, tool versions, and results.
-6. **Security by design:** Evaluate misuse cases, failure modes, and security-relevant state transitions.
-7. **Evidence-based reporting:** Never present an untested feature as a verified capability.
-8. **Controlled evolution:** Introduce new technologies only when supported by a justified engineering requirement.
-
-Engineering decisions, known limitations, and important architectural changes will be documented as the project matures.
-
-## 8. Development Environment
-
-The initial development environment uses:
-
-- macOS on Apple Silicon
-- Visual Studio Code
-- Git and GitHub
-- Python for foundational prototypes
-- C/C++ and Rust for future systems-level components
-- SystemVerilog for RTL development
-- Linux environments where required
-
-Simulation and verification tools will be selected and validated as specific engineering requirements emerge.
-
-Potential research tools include Verilator, cocotb, Yosys, QEMU, and other appropriate open-source verification frameworks.
-
-Tool selection does not imply that an integration has been implemented or validated.
-
-## 9. Security and Research Boundaries
-
-SILIARCH is intended for authorized, controlled, and safety-conscious engineering research.
-
-Security-sensitive experiments must operate within explicitly permitted environments.
-
-The project will distinguish between:
-
-- Design intent
-- Assumed security properties
-- Software simulation results
-- Formal verification results
-- Hardware measurements
-- Independently reproduced findings
-
-No production-readiness, certified assurance, or universal hardware compatibility is claimed without supporting evidence.
-
-## 10. Project Ecosystem
-
-SILIARCH is part of the RAVENSCROFT engineering research program.
-
-| Project | Primary Responsibility |
-|---|---|
-| SILIARCH | Trusted hardware and advanced computing |
-| VIGERITH | Cross-domain cyber defense and security intelligence |
-| CAUSORYN | Global intelligence and causal research |
-| COVARITH | Quantitative research and risk engineering |
-
-Each project maintains an independent engineering scope.
-
-Future integrations will use explicitly defined, versioned interfaces and independently verified data contracts.
-
-## 11. Project Status
-
-**Current stage: Foundation and early engineering research.**
-
-The repository is being initialized. Research areas, roadmap milestones, and architectural components described here are development objectives unless explicitly documented as implemented and tested.
-
-Initial implementation and verification evidence will be added incrementally.
-
-## 12. License and Contributions
-
-A project license has not yet been selected.
-
-Public repository visibility does not, by itself, grant permission to reuse or redistribute source code.
-
-Contribution guidelines and release procedures will be established as the project matures.
-
----
-
-**SILIARCH**  
-*VanceBlackwood Industries*  
-*RAVENSCROFT Engineering Research*
-
-**Research. Engineer. Verify.**
+A license has not yet been selected. Public visibility does not automatically grant redistribution rights.
