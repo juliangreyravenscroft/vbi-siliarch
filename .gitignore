@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Local environments
+.venv/
+venv/
+.env
+.env.*
+
+# Local editor state
+.vscode/
+
+# Build artifacts
+build/
+dist/
